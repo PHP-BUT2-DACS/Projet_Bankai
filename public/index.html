@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bankai</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #ffffff;
+      display: flex;
+      height: 100vh;
+
+      background-size: cover;
+      background-position: center;
+    }
+
+    .sidebar {
+      width: 15%;
+      background-color: rgba(25, 39, 52, 0.9);
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #ffffff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .sidebar a img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .sidebar a:hover {
+      background-color: #1d9bf0;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      text-align: center;
+    }
+
+    .main-content h1 {
+      font-size: 48px;
+      font-family: 'Fantasy', cursive;
+      text-shadow: 0 0 10px #fff;
+      margin-bottom: 20px;
+    }
+
+    .main-content .feed-button {
+      display: inline-block;
+      padding: 10px 20px;
+      border: 2px solid #1d9bf0;
+      border-radius: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .main-content .feed-button:hover {
+      background-color: #1d9bf0;
+    }
+
+    .suggestions {
+      width: 25%;
+      background-color: rgba(25, 39, 52, 0.9);
+      padding: 20px;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .suggestions h2 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #1d9bf0;
+    }
+
+    .suggestion-item {
+      background-color: #22303c;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .character-image {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 35%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+<div class="sidebar">
+  <a href="#">
+    <img src="logo.png" alt="Logo Icon">
+  </a>
+  <a href="#">
+    <img src="home.png" alt="Home Icon">
+  </a>
+  <a href="#">
+    <img src="search.png" alt="Explore Icon">
+  </a>
+  <a href="#">
+    <img src="notif.png" alt="Notifications Icon">
+  </a>
+  <a href="#">
+    <img src="profile.png" alt="Profile Icon">
+  </a>
+  <a href="#">
+    <img src="settings.png" alt="Settings Icon">
+  </a>
+</div>
+
+<div class="main-content">
+  <h1>Bankai</h1>
+  <p>Here is all the news about your favourites sports !</p>
+</div>
+
+<div class="suggestions">
+  <h2>Trending events</h2>
+  <div class="suggestion-item">Suggestion 1</div>
+  <div class="suggestion-item">Suggestion 2</div>
+  <div class="suggestion-item">Suggestion 3</div>
+</div>
+
+<img class="character-image" src="yamamoto.png" alt="Character Image"> <!-- Replace with your character image -->
+</body>
+</html>
