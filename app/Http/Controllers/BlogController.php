@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Get;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class BlogController extends Controller
 {

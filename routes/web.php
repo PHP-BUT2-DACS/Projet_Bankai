@@ -26,6 +26,10 @@ Route::resource('/', BlogController::class)->names([
     'show' => 'posts.show',
 ]);
 
+Route::get('/users/{user}/followers', [FollowController::class, 'followers'])->name('followers');
+
+Route::get('/users/{user}/followings', [FollowController::class, 'followings'])->name('followings');
+
 Route::post('/users/{user}/follow', [FollowController::class, 'follow'])->name('follow');
 Route::post('/users/{user}/unfollow', [FollowController::class, 'unfollow'])->name('unfollow');
 Route::get('/users/{user}/followers', [FollowController::class, 'followers'])->name('followers');
