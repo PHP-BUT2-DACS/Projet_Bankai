@@ -1,36 +1,63 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- Fonts & Styles -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
+<div class="min-h-screen flex">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- Sidebar -->
+    <div class="w-1/4 bg-gray-900 text-white p-6 flex flex-col items-center shadow-lg">
+        <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
+            <img src="{{ asset('images/home.png') }}" alt="Home" class="w-6 h-6 mr-2"> Home
+        </a>
+        <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
+            <img src="{{ asset('images/search.png') }}" alt="Explore" class="w-6 h-6 mr-2"> Explore
+        </a>
+        <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
+            <img src="{{ asset('images/notif.png') }}" alt="Notifications" class="w-6 h-6 mr-2"> Notifications
+        </a>
+        <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
+            <img src="{{ asset('images/settings.png') }}" alt="Settings" class="w-6 h-6 mr-2"> Settings
+        </a>
+        <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
+            <img src="{{ asset('images/profile.png') }}" alt="Profile" class="w-6 h-6 mr-2"> Profile
+        </a>
+    </div>
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+    <!-- Main Content -->
+    <div class="w-1/4 flex-1">
+        @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+        <!-- Page Heading -->
+        @isset($header)
+            <header class="bg-white dark:bg-gray-800 shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
+            </header>
+        @endisset
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-    </body>
+        <!-- Page Content -->
+        <main class="p-6">
+            @yield('content')
+        </main>
+    </div>
+
+    <!-- Suggestions -->
+    <div class="w-1/2 bg-gray-900 text-white p-6 shadow-lg">
+        <h2 class="text-lg text-blue-500 font-semibold mb-4">Trending Events</h2>
+        <div class="bg-gray-800 p-3 rounded-lg mb-3">🏀 NBA Finals</div>
+        <div class="bg-gray-800 p-3 rounded-lg mb-3">⚽ Champions League</div>
+        <div class="bg-gray-800 p-3 rounded-lg">🎾 Roland Garros</div>
+    </div>
+
+</div>
+</body>
 </html>
