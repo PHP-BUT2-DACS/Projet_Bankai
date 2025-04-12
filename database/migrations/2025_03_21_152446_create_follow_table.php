@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('follows', function (Blueprint $table) {
+        Schema::create('follow', function (Blueprint $table) {
             // Clés étrangères
             $table->unsignedBigInteger('follower_id');
             $table->unsignedBigInteger('followed_id');
