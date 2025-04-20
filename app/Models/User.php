@@ -58,4 +58,10 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id')
             ->withTimestamps();
     }
+
+    public function favoriteSports()
+    {
+        return $this->belongsToMany(Sport::class, 'favorite_sport_selection');
+    }
+
 }
