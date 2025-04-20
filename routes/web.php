@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\APIMatchController;
+use App\Http\Controllers\FavoriteSportSelectionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
@@ -26,6 +27,18 @@ Route::middleware('auth')->group(function () {
 
 // Route pour récupérer les matchs depuis l'API externe
 Route::get('/', [APIMatchController::class, 'index'])->name('matches.index');
+
+// Routes pour la selection du sport favorie
+Route::middleware(['auth'])->group(function () {
+    // Depuis la page d'un sport
+    Route::post('/sports/{sport}/favorite', [FavoriteSportSelectionController::class, 'add'])->name('sports.favorite');
+    Route::delete('/sports/{sport}/favorite', [FavoriteSportSelectionController::class, 'remove'])->name('sports.unfavorite');
+
+    // Formulaire de sélection multiple
+    Route::get('/favorite-sports', [FavoriteSportSelectionController::class, 'create'])->name('favorite-sports.create');
+    Route::post('/favorite-sports', [FavoriteSportSelectionController::class, 'store'])->name('favorite-sports.store');
+});
+
 
 // Inclusion des routes d'authentification générées par Laravel Breeze ou Jetstream
 require __DIR__.'/auth.php';
