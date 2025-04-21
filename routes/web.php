@@ -1,13 +1,12 @@
 <?php
 
+use App\Http\Controllers\APIMatchController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 
-use App\Http\Controllers\MatchTabController;
-
-Route::get('/matches', [MatchTabController::class, 'index'])->name('matches.index');
+Route::get('/matches', [APIMatchController::class, 'index'])->name('matches.index');
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name', 50)->nullable();
             $table->string('lastname', 50)->nullable();
             $table->string('password', 255);
-            $table->foreignId('sport_id')->nullable()->constrained('sports');
+            $table->string('favorite_sports', 255)->nullable();
             $table->text('follower_list')->nullable();
             $table->text('followed_list')->nullable();
             $table->string('active', 10)->nullable();
