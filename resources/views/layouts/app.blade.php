@@ -66,7 +66,7 @@
     </div>
 
     <!-- Suggestions -->
-    <div class="w-1/2 bg-gray-900 text-white p-6 shadow-lg">
+    <div class="w-1/4 bg-gray-900 text-white p-6 shadow-lg">
         <h2 class="text-lg text-blue-500 font-semibold mb-4">Trending Events</h2>
         <div class="bg-gray-800 p-3 rounded-lg mb-3">🏀 NBA Finals</div>
         <div class="bg-gray-800 p-3 rounded-lg mb-3">⚽ Champions League</div>

@@ -13,7 +13,7 @@
         </div>
 
         <!-- Informations de l'utilisateur -->
-        <div class="mt-12 p-4">
+        <div class="mt-2 p-4">
             <h1 class="text-2xl font-bold text-white">
                 {{ $user->username }}
                 @if($user->verified)
@@ -47,15 +47,15 @@
             <!-- Nombre d'abonnés et d'abonnements -->
             <div class="mt-2 flex items-center space-x-4">
                 <span class="font-bold text-white">{{ $user->followers->count() }}</span>
-                <span class="text-white">&nbspabonnés,&nbsp</span>
+                <span class="text-white">abonnés,</span>
                 <span class="font-bold text-white">{{ $user->following->count() }}</span>
-                <span class="text-white">&nbspabonnements</span>
+                <span class="text-white">abonnements</span>
             </div>
         </div>
 
         <!-- Bouton Follow/Unfollow -->
         @if (Auth::check() && Auth::id() !== $user->id)
-            <div class="mt-4">
+            <div class="mt-6 mb-6">
                 @if ($isFollowing)
                     <form action="{{ route('profile.unfollow', $user->username) }}" method="POST">
                         @csrf
@@ -76,7 +76,7 @@
 
         <!-- Bouton Modifier le profil (visible uniquement pour l'utilisateur connecté) -->
         @if (Auth::check() && Auth::id() === $user->id)
-            <div class="mt-4">
+            <div class="mt-6 mb-6">
                 <a href="{{ route('profile.edit') }}"
                    class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
                     Modifier le profil
@@ -84,20 +84,20 @@
             </div>
         @endif
 
-        <!-- Navigation -->
+
         <!-- Navigation -->
         <div class="border-b">
             <div class="flex justify-around text-gray-500">
                 <a href="{{ route('profile.show', $user->username) }}?tab=posts"
-                   class="py-2 px-4 {{ $tab === 'posts' ? 'font-bold text-black border-b-2 border-black' : '' }}">
+                   class="py-2 px-4 {{ $tab === 'posts' ? 'font-bold text-white border-b-2 border-black' : '' }}">
                     Posts
                 </a>
                 <a href="{{ route('profile.show', $user->username) }}?tab=followers"
-                   class="py-2 px-4 {{ $tab === 'followers' ? 'font-bold text-black border-b-2 border-black' : '' }}">
+                   class="py-2 px-4 {{ $tab === 'followers' ? 'font-bold text-white border-b-2 border-black' : '' }}">
                     Abonnés
                 </a>
                 <a href="{{ route('profile.show', $user->username) }}?tab=following"
-                   class="py-2 px-4 {{ $tab === 'following' ? 'font-bold text-black border-b-2 border-black' : '' }}">
+                   class="py-2 px-4 {{ $tab === 'following' ? 'font-bold text-white border-b-2 border-black' : '' }}">
                     Abonnements
                 </a>
             </div>
@@ -137,7 +137,7 @@
                 <!-- Liste des abonnés -->
                 @forelse($user->followers as $follower)
                     <div class="p-4 border-b flex items-center space-x-4">
-                        <img src="{{ $follower->avatar ?? 'https://via.placeholder.com/50' }}" class="w-12 h-12 rounded-full" alt="Avatar de l'abonné">
+                        <img src="{{ Storage::url($follower->avatar) }}" class="w-12 h-12 rounded-full" alt="Avatar de l'abonné">
                         <div>
                             <a href="{{ route('profile.show', $follower->username) }}" class="font-semibold text-white hover:underline">
                                 {{ $follower->username }}
@@ -158,7 +158,7 @@
                 <!-- Liste des abonnements -->
                 @forelse($user->following as $followed)
                     <div class="p-4 border-b flex items-center space-x-4">
-                        <img src="{{ $followed->avatar ?? 'https://via.placeholder.com/50' }}" class="w-12 h-12 rounded-full" alt="Avatar de l'abonnement">
+                        <img src="{{ Storage::url($followed->avatar) }}" class="w-12 h-12 rounded-full" alt="Avatar de l'abonnement">
                         <div>
                             <a href="{{ route('profile.show', $followed->username) }}" class="font-semibold text-white hover:underline">
                                 {{ $followed->username }}
