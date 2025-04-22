@@ -9,6 +9,10 @@
                 <div class="mb-2">
                     <img src="{{ Storage::url($user->avatar) }}" class="w-40 h-40 top-0 left-0 rounded-full border-4 border-white shadow-lg" alt="Avatar actuel">
                 </div>
+            @else
+                <div class="mb-2">
+                    <img src="{{ asset('images/profile.png') }}" class="w-40 h-40 top-0 left-0 rounded-full border-4 border-white shadow-lg" alt="Avatar actuel">
+                </div>
             @endif
         </div>
 
@@ -28,13 +32,18 @@
             @endif
 
             <!-- Sports favoris -->
-            @if($user->favorite_sports)
-                <p class="mt-2 text-white">
-                    <span class="font-semibold">Sports favoris :</span> {{ $user->favorite_sports }}
-                </p>
-            @else
-                <p class="mt-2 text-white">Aucun sport favori spécifié.</p>
-            @endif
+            <div class="mt-4">
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Sports favoris :</h2>
+                @if ($user->favoriteSports->isEmpty())
+                    <p class="text-gray-500 dark:text-gray-400">Aucun sport favori sélectionné.</p>
+                @else
+                    <ul class="list-disc list-inside mt-2">
+                        @foreach ($user->favoriteSports as $sport)
+                            <li class="text-gray-700 dark:text-gray-300">{{ $sport->name }}</li>
+                        @endforeach
+                    </ul>
+                @endif
+            </div>
 
             <!-- Localisation et date d'inscription -->
             <div class="mt-2 text-white flex items-center space-x-4">
@@ -137,7 +146,7 @@
                 <!-- Liste des abonnés -->
                 @forelse($user->followers as $follower)
                     <div class="p-4 border-b flex items-center space-x-4">
-                        <img src="{{ Storage::url($follower->avatar) }}" class="w-12 h-12 rounded-full" alt="Avatar de l'abonné">
+                        <img src="{{ Storage::url($follower->avatar) ?? asset('images/profile.png')  }}" class="w-12 h-12 rounded-full" alt="Avatar de l'abonné">
                         <div>
                             <a href="{{ route('profile.show', $follower->username) }}" class="font-semibold text-white hover:underline">
                                 {{ $follower->username }}
@@ -158,7 +167,7 @@
                 <!-- Liste des abonnements -->
                 @forelse($user->following as $followed)
                     <div class="p-4 border-b flex items-center space-x-4">
-                        <img src="{{ Storage::url($followed->avatar) }}" class="w-12 h-12 rounded-full" alt="Avatar de l'abonnement">
+                        <img src="{{ Storage::url($followed->avatar) ?? asset('images/profile.png')  }}" class="w-12 h-12 rounded-full" alt="Avatar de l'abonnement">
                         <div>
                             <a href="{{ route('profile.show', $followed->username) }}" class="font-semibold text-white hover:underline">
                                 {{ $followed->username }}

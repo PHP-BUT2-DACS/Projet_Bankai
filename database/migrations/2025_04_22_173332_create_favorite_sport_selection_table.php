@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('favorite_sport_selection', function (Blueprint $table) {
             $table->id();
-            $table->string('user_username', 50);
-            $table->foreign('user_username')->references('username')->on('app_users')->onDelete('cascade');
-            $table->text('text')->nullable();
-            $table->string('title', 100)->nullable();
-            $table->date('post_date')->nullable();
+            $table->foreignId('user_id')->constrained('app_users')->onDelete('cascade');
+            $table->foreignId('sport_id')->constrained('sports')->onDelete('cascade');
             $table->timestamps();
+
+            // Empêcher les doublons
+            $table->unique(['user_id', 'sport_id']);
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('favorite_sport_selection');
     }
 };

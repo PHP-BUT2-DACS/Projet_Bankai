@@ -19,7 +19,6 @@ class User extends Authenticatable
         'name',
         'lastname',
         'password',
-        'favorite_sports',
         'bio',
         'location',
         'avatar',
@@ -65,5 +64,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')
             ->withTimestamps();
+    }
+
+    public function favoriteSports()
+    {
+        return $this->belongsToMany(Sport::class, 'favorite_sport_selection', 'user_id', 'sport_id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sport;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class UserController extends Controller
     {
         $user = User::query()
             ->where('username', $username)
-            ->with(['posts', 'followers', 'following'])
+            ->with(['posts', 'followers', 'following', 'favoriteSports'])
             ->firstOrFail();
 
         $isFollowing = Auth::check() && Auth::user()->following()->where('followed_id', $user->id)->exists();
@@ -54,7 +55,10 @@ class UserController extends Controller
     public function edit(): View
     {
         $user = Auth::user();
-        return view('profile.edit', compact('user'));
+        $sports = Sport::all();
+        $selectedSports = $user->favoriteSports()->pluck('sport_id')->toArray();
+
+        return view('profile.edit', compact('user', 'sports', 'selectedSports'));
     }
 
     public function update(Request $request): RedirectResponse
@@ -62,16 +66,22 @@ class UserController extends Controller
         $user = Auth::user();
 
         $validated = $request->validate([
-            'username' => ['required', 'string', 'max:50', 'unique:app_users,username,' . $user->id],
-            'email' => ['required', 'email', 'max:100', 'unique:app_users,mail_address,' . $user->id],
-            'name' => ['nullable', 'string', 'max:50'],
-            'lastname' => ['nullable', 'string', 'max:50'],
-            'favorite_sports' => ['nullable', 'string', 'max:255'],
-            'bio' => ['nullable', 'string'],
-            'location' => ['nullable', 'string', 'max:100'],
-            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'username' => 'required|string|max:255|unique:app_users,username,'.$user->id,
+            'email' => 'required|string|email|max:255|unique:app_users,mail_address,'.$user->id,
+            'name' => 'nullable|string|max:255',
+            'lastname' => 'nullable|string|max:255',
+            'favorite_sports' => 'nullable|array',
+            'favorite_sports.*' => 'exists:sports,id',
+            'bio' => 'nullable|string',
+            'location' => 'nullable|string|max:255',
+            'avatar' => 'nullable|image|max:2048',
         ]);
-
+/*
+        if (isset($validated['email'])) {
+            $validated['mail_address'] = $validated['email'];
+            unset($validated['email']);
+        }
+*/
         if ($request->hasFile('avatar')) {
             if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
                 Storage::disk('public')->delete($user->avatar);
@@ -80,6 +90,15 @@ class UserController extends Controller
             $path = $request->file('avatar')->store('avatars', 'public');
             $validated['avatar'] = $path;
         }
+
+        // Mettre à jour les sports favoris via la relation
+        $sportIds = $request->input('favorite_sports', []);
+        $user->favoriteSports()->sync($sportIds);if (isset($validated['favorite_sports'])) {
+            $user->favoriteSports()->sync($validated['favorite_sports']);
+        } else {
+            $user->favoriteSports()->sync([]); // Vide les sports favoris si aucun n'est sélectionné
+        }
+        unset($validated['favorite_sports']);
 
         $user->update($validated);
 

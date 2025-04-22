@@ -64,11 +64,22 @@
                 @enderror
             </div>
 
-            <!-- Favorite Sports -->
+            <!-- Sélection des sports favoris -->
             <div class="mb-4">
-                <label for="favorite_sports" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sports favoris</label>
-                <input type="text" name="favorite_sports" id="favorite_sports" value="{{ old('favorite_sports', $user->favorite_sports) }}"
-                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <label class="block text-gray-700 dark:text-gray-300">Sports favoris</label>
+                <div class="space-y-2">
+                    @foreach ($sports as $sport)
+                        <div class="flex items-center">
+                            <input type="checkbox" name="favorite_sports[]" value="{{ $sport->id }}"
+                                   id="sport-{{ $sport->id }}"
+                                   {{ in_array($sport->id, $selectedSports) ? 'checked' : '' }}
+                                   class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="sport-{{ $sport->id }}" class="ml-2 text-gray-900 dark:text-white">
+                                {{ $sport->name }}
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
                 @error('favorite_sports')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
