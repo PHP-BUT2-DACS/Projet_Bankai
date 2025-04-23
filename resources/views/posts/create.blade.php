@@ -34,6 +34,19 @@
                 @enderror
             </div>
 
+            <!-- Sport -->
+            <div class="mb-4">
+                <label for="sport_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sport</label>
+                <select name="sport_id" id="sport_id" class="mt-1 block w-full rounded-md dark:bg-gray-700 dark:text-white">
+                    <option value="">Choisir un sport</option>
+                    @foreach($sports as $sport)
+                        <option value="{{ $sport->id }}" {{ old('sport_id') == $sport->id ? 'selected' : '' }}>
+                            {{ $sport->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
             <!-- Contenu -->
             <div class="mb-4">
                 <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Contenu</label>

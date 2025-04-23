@@ -46,6 +46,7 @@ class PostController extends Controller
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Sport;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +61,7 @@ class PostController extends Controller
     /**
      * Affiche la liste de tous les posts (fil d'actualité).
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index(): View
     {
@@ -75,17 +76,18 @@ class PostController extends Controller
     /**
      * Affiche le formulaire pour créer un nouveau post.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function create(): View
     {
-        return view('posts.create');
+        $sports = Sport::all();
+        return view('posts.create', compact('sports'));
     }
 
     /**
      * Enregistre un nouveau post.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @return RedirectResponse
      */
     public function store(Request $request): RedirectResponse
@@ -93,6 +95,7 @@ class PostController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
+            'sport_id' => ['nullable', 'exists:sports,id'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
@@ -124,7 +127,6 @@ class PostController extends Controller
         $validated['post_date'] = now();
 
         Post::create($validated);
-
         return redirect()->route('posts.index')->with('success', 'Post publié avec succès !');
     }
 

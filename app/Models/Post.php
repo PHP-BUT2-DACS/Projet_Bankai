@@ -12,6 +12,7 @@ class Post extends Model
         'user_id',
         'title',    // Ajout de title
         'content',
+        'sport_id',
         'image',
     ];
 
@@ -30,4 +31,10 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'likes', 'post_id', 'user_id')
             ->withTimestamps();
     }
+
+    public function sport()
+    {
+        return $this->belongsTo(Sport::class);
+    }
+
 }

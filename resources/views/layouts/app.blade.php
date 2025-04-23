@@ -11,7 +11,7 @@
 </head>
 <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
 <!-- Scripts -->
-<script src="{{ asset('js/likes.js') }}"></script>
+<script src="{{ asset('js/likes.js?v=42') }}"></script>
 @yield('scripts')
 <div class="min-h-screen flex">
 

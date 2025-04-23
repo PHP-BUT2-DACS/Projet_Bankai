@@ -38,6 +38,13 @@
             <div class="mt-6 space-y-6">
                 @forelse ($posts as $post)
                     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
+
+                        @if ($post->sport)
+                            <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-3 py-1 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                                ⚽ {{ $post->sport->name }}
+                            </span>
+                        @endif
+
                         <!-- Titre du post -->
                         <h2 class="text-2xl font-semibold text-gray-900 dark:text-white">{{ $post->title }}</h2>
 
@@ -53,7 +60,7 @@
 
                         <!-- Informations sur le post -->
                         <div class="flex justify-between items-center mt-4">
-                            <span class="text-sm text-gray-500 dark:text-gray-400">🗓 Publié {{ $post->post_date ? $post->post_date->diffForHumans() : 'Date inconnue' }}</span>
+                            <span class="text-sm text-gray-500 dark:text-gray-400">🗓 Publié {{ $post->created_at ? $post->created_at->diffForHumans() : 'Date inconnue' }}</span>
                             <span class="text-sm font-medium text-indigo-600 dark:text-indigo-400">
                                 ✍️ <a href="{{ route('profile.show', $post->user->username) }}" class="hover:underline">{{ $post->user->username }}</a>
                             </span>
@@ -61,19 +68,20 @@
 
                         <!-- Likes -->
                         <div class="mt-2 flex items-center space-x-2">
-                            <span class="text-sm text-gray-500 dark:text-gray-400 likes-count" data-post-id="{{ $post->id }}">❤️ {{ $post->likedBy()->count() }} likes</span>
-                            @if (Auth::check())
-                                @if (Auth::user()->likes()->where('post_id', $post->id)->exists())
-                                    <!-- Bouton Unlike -->
-                                    <button class="text-sm text-red-500 hover:underline like-button" data-post-id="{{ $post->id }}" data-action="unlike">Unlike</button>
-                                @else
-                                    <!-- Bouton Like -->
-                                    <button class="text-sm text-blue-500 hover:underline like-button" data-post-id="{{ $post->id }}" data-action="like">Like</button>
-                                @endif
-                            @endif
+                        <span class="text-sm text-gray-500 dark:text-gray-400 likes-count" data-post-id="{{ $post->id }}">
+                            {{ $post->likedBy()->count() }}
+                        </span>
+                        @if (Auth::check())
+                            <button class="text-sm like-button {{ Auth::user()->likes()->where('post_id', $post->id)->exists() ? 'text-red-500' : 'text-gray-400' }}"
+                                data-post-id="{{ $post->id }}"
+                                data-action="{{ Auth::user()->likes()->where('post_id', $post->id)->exists() ? 'unlike' : 'like' }}">
+                                ❤️
+                            </button>
+                        @endif
                         </div>
 
-                        <!-- Bouton de suppression (visible uniquement pour l'auteur) -->
+
+                            <!-- Bouton de suppression (visible uniquement pour l'auteur) -->
                         @if (Auth::check() && Auth::id() === $post->user_id)
                             <div class="mt-4 flex justify-end">
                                 <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce post ?');">
