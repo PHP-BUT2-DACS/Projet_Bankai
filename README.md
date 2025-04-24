@@ -1,11 +1,11 @@
 TODO pour le README : 
-- Mettre tout quoi installer pour faire fonctionner le projet
+- Mettre tout quoi installer pour faire fonctionner le projet (scout, [rajouter])
 - Bref présentation
 
 TODO code : 
 - Ajout tout le code pour les call api (plus tard)
 - Selection des sports (priorité) FAIT
-- Algo recherche (priorité)
+- Algo recherche (priorité) EN VERIF
 - Rejoindre une équipe/quitter(une par sport de pref)
 - Faire des comptes/page admin
 
