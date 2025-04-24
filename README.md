@@ -4,7 +4,7 @@ TODO pour le README :
 
 TODO code : 
 - Ajout tout le code pour les call api (plus tard)
-- Selection des sports (priorité)
+- Selection des sports (priorité) FAIT
 - Algo recherche (priorité)
 - Rejoindre une équipe/quitter(une par sport de pref)
 - Faire des comptes/page admin
