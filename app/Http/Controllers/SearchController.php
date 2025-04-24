@@ -21,7 +21,7 @@ class SearchController extends Controller
         // Posts récents (uniquement si pas de recherche)
         $recent_posts = empty($key)
             ? Post::where('is_published', true)
-                ->orderBy('created_at', 'desc')
+                  ->orderBy('created_at', 'desc')
                 ->take(5)
                 ->get()
             : collect();

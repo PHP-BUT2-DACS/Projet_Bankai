@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('teams', function (Blueprint $table) {
+        Schema::create('app_user_team', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->string('country', 50)->nullable();
-            $table->string('city', 50)->nullable();
-            $table->foreignId('sport_id')->constrained()->cascadeOnDelete();
+            $table->string('app_user_username', 50);
+            $table->foreign('app_user_username')->references('username')->on('app_users')->onDelete('cascade');
+            $table->foreignId('team_id')->constrained('teams')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('team');
+        Schema::dropIfExists('app_user_team');
     }
 };
