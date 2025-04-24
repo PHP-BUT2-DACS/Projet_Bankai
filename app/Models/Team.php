@@ -17,4 +17,14 @@ class Team extends Model
     {
         return $this->hasMany(Matche::class, 'away_team_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'app_user_team', 'team_id', 'app_user_username');
+    }
+
+    public function sport()
+    {
+        return $this->belongsTo(Sport::class);
+    }
 }
