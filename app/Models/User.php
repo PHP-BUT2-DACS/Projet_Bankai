@@ -2,60 +2,77 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable;
+    protected $table = 'users';
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    protected $keyType = 'int';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
+        'username',
+        'mail_address',
         'name',
-        'email',
+        'lastname',
         'password',
+        'bio',
+        'location',
+        'avatar',
+        'banner',
+        'verified',
+        'active',
+        'email', // Ajout de email pour correspondre à Breeze
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
+    public function posts(): HasMany
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->hasMany(Post::class, 'user_id');
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(self::class, 'follows', 'follower_id', 'followed_id')
+            ->withTimestamps();
     }
 
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id')
+        return $this->belongsToMany(self::class, 'follows', 'followed_id', 'follower_id')
             ->withTimestamps();
     }
 
-    public function followings()
+    /**
+     * Get the email attribute (mapped to mail_address).
+     */
+    public function getEmailAttribute()
     {
-        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id')
+        return $this->attributes['mail_address'];
+    }
+
+    /**
+     * Set the email attribute (mapped to mail_address).
+     */
+    public function setEmailAttribute($value): void
+    {
+        $this->attributes['mail_address'] = $value;
+    }
+    public function likes(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')
             ->withTimestamps();
+    }
+
+    public function favoriteSports()
+    {
+        return $this->belongsToMany(Sport::class, 'favorite_sport_selection', 'user_id', 'sport_id');
+    }
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'app_user_team', 'user_id', 'team_id');
     }
 }

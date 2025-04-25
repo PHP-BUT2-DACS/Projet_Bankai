@@ -5,18 +5,14 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ route('posts.index') }}">
                         <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-12 h-12">
                     </a>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                    <h1 class="text-2xl font-bold text-white">&nbsp&nbsp&nbspBANKAI</h1>
                 </div>
             </div>
+
+
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -43,7 +39,7 @@
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                             onclick="event.preventDefault();
+                                    onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -89,12 +85,32 @@
                     @csrf
 
                     <x-responsive-nav-link :href="route('logout')"
-                                           onclick="event.preventDefault();
+                            onclick="event.preventDefault();
                                         this.closest('form').submit();">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
         </div>
+    </div>
+    {{-- Système d'onglets intégré --}}
+    <div class="border-b border-gray-200 dark:border-gray-700">
+        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+            <li class="me-2">
+                <a href="{{ route('posts.index') }}" class="inline-flex items-center justify-center p-4 {{ request()->routeIs('posts.*') ? 'text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500' : 'border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }} rounded-t-lg group" aria-current="{{ request()->routeIs('posts.*') ? 'page' : 'false' }}">
+                    Posts
+                </a>
+            </li>
+            <li class="me-2">
+                <a href="{{ route('matches.index') }}" class="inline-flex items-center justify-center p-4 {{ request()->routeIs('matches.*') ? 'text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500' : 'border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }} rounded-t-lg group" aria-current="{{ request()->routeIs('matches.*') ? 'page' : 'false' }}">
+                    Matchs
+                </a>
+            </li>
+            <li class="me-2">
+                <a href="{{ route('teams.index') }}" class="inline-flex items-center justify-center p-4 {{ request()->routeIs('teams.*') ? 'text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500' : 'border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }} rounded-t-lg group" aria-current="{{ request()->routeIs('teams.*') ? 'page' : 'false' }}">
+                    Teams
+                </a>
+            </li>
+        </ul>
     </div>
 </nav>

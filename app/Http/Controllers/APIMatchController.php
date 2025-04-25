@@ -3,18 +3,39 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 class APIMatchController extends Controller
 {
     public function index()
     {
-        $response = Http::get('https://api.sportmonks.com/v3/football/matches', [
-            'api_token' => '8Js7PrcEO1JzsHci65kWPzX7OE07twyX3ZdcwfcL4U3WKt1TJ963Y1WUQpAS',
-            'league_id' => 5, // ID de Ligue 1
+        // Récupérer la date depuis le paramètre GET, ou utiliser la date du jour par défaut
+        $matchDate = request('match_date', Carbon::today()->format('Y-m-d'));
+
+        // Valider la date pour s'assurer qu'elle est au bon format
+        try {
+            $date = Carbon::parse($matchDate)->format('Y-m-d');
+        } catch (\Exception $e) {
+            $date = Carbon::today()->format('Y-m-d'); // Revenir à la date du jour en cas d'erreur
+        }
+
+        // Récupérer les matchs pour la date donnée via l'API Football-Data.org
+        $response = Http::withHeaders([
+            'X-Auth-Token' => '9b5707515483469fa6fc1f605bea8383',
+        ])->get('https://api.football-data.org/v4/matches', [
+            'dateFrom' => $date,
+            'dateTo' => $date,
         ]);
 
-        $matches = $response->json()['data'];
+        // Vérifier si la requête a réussi
+        if ($response->failed()) {
+            $error = 'Erreur lors de la récupération des matchs : ' . $response->status();
+            $matches = [];
+        } else {
+            $error = null;
+            $matches = $response->json()['matches'] ?? [];
+        }
 
-        return view('welcome', compact('matches'));
+        return view('matches.index', compact('matches', 'error'));
     }
 }

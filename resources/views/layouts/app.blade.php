@@ -4,31 +4,46 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Bankai') }}</title>
 
     <!-- Fonts & Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
+<!-- Scripts -->
+<script src="{{ asset('js/likes.js?v=42') }}"></script>
+@yield('scripts')
 <div class="min-h-screen flex">
 
     <!-- Sidebar -->
     <div class="w-1/4 bg-gray-900 text-white p-6 flex flex-col items-center shadow-lg">
-        <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
+        <!-- Home (Accueil) -->
+        <a href="{{ route('posts.index') }}" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
             <img src="{{ asset('images/home.png') }}" alt="Home" class="w-6 h-6 mr-2"> Home
         </a>
+        <!-- Explore -->
         <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
             <img src="{{ asset('images/search.png') }}" alt="Explore" class="w-6 h-6 mr-2"> Explore
         </a>
+        <!-- Notifications -->
         <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
             <img src="{{ asset('images/notif.png') }}" alt="Notifications" class="w-6 h-6 mr-2"> Notifications
         </a>
+        <!-- Settings -->
         <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
             <img src="{{ asset('images/settings.png') }}" alt="Settings" class="w-6 h-6 mr-2"> Settings
         </a>
-        <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
+        <!-- Profile -->
+        <a href="{{ Auth::check() ? route('profile.show', Auth::user()->username) : route('login') }}"
+           class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
             <img src="{{ asset('images/profile.png') }}" alt="Profile" class="w-6 h-6 mr-2"> Profile
         </a>
+        <!-- Poster (visible uniquement pour les utilisateurs connectés) -->
+        @if (Auth::check())
+            <a href="{{ route('posts.create') }}" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
+                Poster
+            </a>
+        @endif
     </div>
 
     <!-- Main Content -->
@@ -51,7 +66,7 @@
     </div>
 
     <!-- Suggestions -->
-    <div class="w-1/2 bg-gray-900 text-white p-6 shadow-lg">
+    <div class="w-1/4 bg-gray-900 text-white p-6 shadow-lg">
         <h2 class="text-lg text-blue-500 font-semibold mb-4">Trending Events</h2>
         <div class="bg-gray-800 p-3 rounded-lg mb-3">🏀 NBA Finals</div>
         <div class="bg-gray-800 p-3 rounded-lg mb-3">⚽ Champions League</div>
