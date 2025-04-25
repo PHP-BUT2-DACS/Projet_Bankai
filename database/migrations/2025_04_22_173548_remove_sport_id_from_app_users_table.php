@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('app_users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             // Suppression de la clé étrangère et de la colonne
             $table->dropConstrainedForeignId('sport_id');
         });
@@ -22,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('app_users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             // Recréation de la colonne si on revient en arrière
             $table->foreignId('sport_id')->nullable()->constrained('sports')->onDelete('set null');
         });

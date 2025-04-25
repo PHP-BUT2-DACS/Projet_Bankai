@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    protected $table = 'app_users';
+    protected $table = 'users';
     protected $primaryKey = 'id';
     public $incrementing = true;
     protected $keyType = 'int';
@@ -69,5 +69,10 @@ class User extends Authenticatable
     public function favoriteSports()
     {
         return $this->belongsToMany(Sport::class, 'favorite_sport_selection', 'user_id', 'sport_id');
+    }
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'app_user_team', 'user_id', 'team_id');
     }
 }

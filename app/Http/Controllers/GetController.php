@@ -9,7 +9,7 @@ class GetController extends Controller
 {
     public function GetUser(){
         return view('getUser', [
-            'app_users' => Get::all()
+            'users' => Get::all()
         ]);
     }
 

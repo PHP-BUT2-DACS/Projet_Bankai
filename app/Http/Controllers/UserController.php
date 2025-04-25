@@ -23,7 +23,7 @@ class UserController extends Controller
 
         $tab = $request->query('tab', 'posts');
 
-        return view('profile', [
+        return view('profile.index', [
             'user' => $user,
             'tab' => $tab,
             'isFollowing' => $isFollowing,
@@ -66,8 +66,8 @@ class UserController extends Controller
         $user = Auth::user();
 
         $validated = $request->validate([
-            'username' => 'required|string|max:255|unique:app_users,username,'.$user->id,
-            'email' => 'required|string|email|max:255|unique:app_users,mail_address,'.$user->id,
+            'username' => 'required|string|max:255|unique:users,username,'.$user->id,
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
             'name' => 'nullable|string|max:255',
             'lastname' => 'nullable|string|max:255',
             'favorite_sports' => 'nullable|array',
@@ -76,12 +76,7 @@ class UserController extends Controller
             'location' => 'nullable|string|max:255',
             'avatar' => 'nullable|image|max:2048',
         ]);
-/*
-        if (isset($validated['email'])) {
-            $validated['mail_address'] = $validated['email'];
-            unset($validated['email']);
-        }
-*/
+
         if ($request->hasFile('avatar')) {
             if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
                 Storage::disk('public')->delete($user->avatar);
@@ -103,5 +98,34 @@ class UserController extends Controller
         $user->update($validated);
 
         return redirect()->route('profile.show', $user->username)->with('success', 'Profil mis à jour avec succès !');
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id')
+            ->withTimestamps();
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id')
+            ->withTimestamps();
+    }
+
+    public function favoriteSports()
+    {
+        return $this->belongsToMany(Sport::class, 'favorite_sport_selection');
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'username' => $this->username,
+        ];
+    }
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'app_user_team', 'app_user_username', 'team_id');
     }
 }

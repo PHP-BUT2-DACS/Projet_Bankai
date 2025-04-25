@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('country', 50)->nullable();
             $table->string('city', 50)->nullable();
+            $table->foreignId('sport_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

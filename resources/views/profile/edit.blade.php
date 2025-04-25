@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="max-w-2xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-        <h1 class="text-2xl font-bold mb-6">Modifier le profil</h1>
+        <h1 class="text-2xl font-bold mb-6 text-gray-700 dark:text-gray-300">Modifier le profil</h1>
 
         <!-- Afficher les messages de succès ou d'erreur -->
         @if (session('success'))

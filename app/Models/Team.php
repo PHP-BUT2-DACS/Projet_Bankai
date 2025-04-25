@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Team extends Model
 {
-    protected $fillable = ['name'];
+    protected $table = 'team';
+    protected $fillable = ['name', 'sport_id'];
 
     public function homeMatches()
     {
@@ -16,5 +17,15 @@ class Team extends Model
     public function awayMatches()
     {
         return $this->hasMany(Matche::class, 'away_team_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'app_user_team', 'team_id', 'user_id');
+    }
+
+    public function sport()
+    {
+        return $this->belongsTo(Sport::class);
     }
 }

@@ -29,7 +29,7 @@ return new class extends Migration
 
         // Migrer les données de l'ancienne table vers la nouvelle
         DB::table('app_users_temp')->insert(
-            DB::table('app_users')->get()->map(function ($user) {
+            DB::table('users')->get()->map(function ($user) {
                 return [
                     'username' => $user->username,
                     'mail_address' => $user->mail_address,
@@ -45,10 +45,10 @@ return new class extends Migration
         );
 
         // Supprimer l'ancienne table
-        Schema::drop('app_users');
+        Schema::drop('users');
 
         // Renommer la table temporaire pour remplacer l'ancienne
-        Schema::rename('app_users_temp', 'app_users');
+        Schema::rename('app_users_temp', 'users');
     }
 
     public function down(): void

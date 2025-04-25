@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\APIMatchController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -20,6 +21,15 @@ Route::post('/user/{username}/follow', [UserController::class, 'follow'])->name(
 Route::post('/user/{username}/unfollow', [UserController::class, 'unfollow'])->name('profile.unfollow')->middleware('auth');
 Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit')->middleware('auth');
 Route::post('/user/profile/update', [UserController::class, 'update'])->name('profile.update')->middleware('auth');
+
+Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create');
+Route::get('/teams/{team}', [TeamController::class, 'show'])->name('teams.show');
+Route::post('/teams/{team}/join', [TeamController::class, 'join'])->name('teams.join');
+Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
+
+Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
+
+
 
 Route::get('/', function () {
     return view('welcome');

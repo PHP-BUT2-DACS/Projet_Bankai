@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('app_users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('favorite_sports');
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('app_users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->string('favorite_sports', 255)->nullable();
         });
     }

@@ -45,6 +45,20 @@
                 @endif
             </div>
 
+            <!-- Team -->
+            <div class="mt-4">
+                <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Team :</h2>
+                @if ($user->teams()->count() === 0)
+                    <p class="text-gray-500 dark:text-gray-400">Ne fais parti d'aucune équipe.</p>
+                @else
+                    <p class="text-blue-500">
+                        <a href="{{ route('teams.show', $user->teams()->first()->id) }}" class="font-semibold hover:underline">
+                        {{ $user->teams()->first()->name }}
+                        </a>
+                    </p>
+                @endif
+            </div>
+
             <!-- Localisation et date d'inscription -->
             <div class="mt-2 text-white flex items-center space-x-4">
                 @if($user->location)
