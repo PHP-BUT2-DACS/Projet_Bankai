@@ -22,7 +22,7 @@
             <img src="{{ asset('images/home.png') }}" alt="Home" class="w-6 h-6 mr-2"> Home
         </a>
         <!-- Explore -->
-        <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
+        <a href="{{ route('search') }}" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
             <img src="{{ asset('images/search.png') }}" alt="Explore" class="w-6 h-6 mr-2"> Explore
         </a>
         <!-- Notifications -->

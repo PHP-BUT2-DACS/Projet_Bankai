@@ -3,11 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Team extends Model
 {
+    use Searchable;
+
     protected $table = 'team';
     protected $fillable = ['name', 'sport_id'];
+
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+        ];
+    }
 
     public function homeMatches()
     {

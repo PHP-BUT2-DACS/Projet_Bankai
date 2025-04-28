@@ -107,6 +107,17 @@
             </div>
         @endif
 
+        @admin
+        <div class="mt-4 flex justify-end">
+            <form action="{{ route('admin.users.delete', $user->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    Supprimer
+                </button>
+            </form>
+        </div>
+        @endadmin
 
         <!-- Navigation -->
         <div class="border-b">

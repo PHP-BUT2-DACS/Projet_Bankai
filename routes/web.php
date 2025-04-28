@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\APIMatchController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/matches', [APIMatchController::class, 'index'])->name('matches.index');
 
@@ -25,9 +27,21 @@ Route::post('/user/profile/update', [UserController::class, 'update'])->name('pr
 Route::get('/teams/create', [TeamController::class, 'create'])->name('teams.create');
 Route::get('/teams/{team}', [TeamController::class, 'show'])->name('teams.show');
 Route::post('/teams/{team}/join', [TeamController::class, 'join'])->name('teams.join');
+Route::post('/teams/{team}/leave', [TeamController::class, 'leave'])->name('teams.leave');
 Route::get('/teams', [TeamController::class, 'index'])->name('teams.index');
 
 Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');
+
+
+
+// Groupe protégé par middleware admin
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::delete('/posts/{post}', [AdminController::class, 'deletePost'])->name('admin.posts.delete');
+    Route::delete('/user/{user}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
+    Route::get('/dashboard', function () { return view('admin.dashboard');})->name('admin.dashboard');
+});
 
 
 

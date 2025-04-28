@@ -114,7 +114,7 @@ class UserController extends Controller
 
     public function favoriteSports()
     {
-        return $this->belongsToMany(Sport::class, 'favorite_sport_selection');
+        return $this->belongsToMany(Sport::class, 'favorite_sport_selection', 'user_id', 'sport_id');
     }
 
     public function toSearchableArray()

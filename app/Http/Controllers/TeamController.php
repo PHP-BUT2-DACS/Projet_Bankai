@@ -13,11 +13,46 @@ class TeamController extends Controller
         $user = auth()->user();
         $team = Team::findOrFail($teamId);
 
+        // Récupère la liste des IDs des sports favoris de l'utilisateur
+        $favSportsIds = $user->favoriteSports()->pluck('sports.id')->toArray();
 
+        // Vérifie que l'équipe correspond à l'un des sports favoris
+        if (!in_array($team->sport_id, $favSportsIds)) {
+            return back()->with('error', 'Vous ne pouvez rejoindre que des équipes correspondant à l\'un de vos sports favoris.');
+        }
+
+        // Vérifie que l'utilisateur n'a pas déjà rejoint une équipe pour ce sport
+        $alreadyInTeam = $user->teams()
+            ->where('sport_id', $team->sport_id)
+            ->exists();
+
+        if ($alreadyInTeam) {
+            return back()->with('error', 'Vous êtes déjà dans une équipe pour ce sport.');
+        }
+
+        // Ajoute l'utilisateur à l'équipe
         $user->teams()->attach($team->id);
 
         return back()->with('success', 'Vous avez rejoint l\'équipe !');
     }
+
+
+    public function leave(Request $request, $teamId)
+    {
+        $user = auth()->user();
+        $team = Team::findOrFail($teamId);
+
+        // Vérifie que l'utilisateur fait bien partie de cette équipe
+        if (!$user->teams->contains($team->id)) {
+            return back()->with('error', 'Vous ne faites pas partie de cette équipe.');
+        }
+
+        // Retire l'utilisateur de l'équipe
+        $user->teams()->detach($team->id);
+
+        return back()->with('success', 'Vous avez quitté l\'équipe.');
+    }
+
 
     public function show($id)
     {

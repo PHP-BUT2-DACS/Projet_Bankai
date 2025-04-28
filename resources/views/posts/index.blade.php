@@ -68,17 +68,18 @@
 
 
                             <!-- Bouton de suppression (visible uniquement pour l'auteur) -->
-                        @if (Auth::check() && Auth::id() === $post->user_id)
-                            <div class="mt-4 flex justify-end">
-                                <form action="{{ route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce post ?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-                                        Supprimer
-                                    </button>
-                                </form>
-                            </div>
-                        @endif
+                            @if (Auth::check() && (Auth::id() === $post->user_id || (Auth::user()->role === 'admin')))
+                                <div class="mt-4 flex justify-end">
+                                    <form action="{{ Auth::user()->role === 'admin' ? route('admin.posts.delete', $post->id) : route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce post ?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                                            Supprimer
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
+
                     </div>
                 @empty
                     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-gray-500">
