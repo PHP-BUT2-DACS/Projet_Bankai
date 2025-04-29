@@ -13,7 +13,7 @@ return new class extends Migration {
             $table->dateTime('start');
             $table->dateTime('end');
             $table->unsignedBigInteger('team_id')->nullable();
-            $table->foreign('team_id')->references('id')->on('teams')->onDelete('set null');
+            $table->foreign('team_id')->references('id')->on('team')->onDelete('set null');
             $table->timestamps();
         });
     }

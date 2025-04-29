@@ -2,39 +2,47 @@
 
 namespace App\Livewire;
 
-use AllowDynamicProperties;
-use App\Models\Conference;
-use App\Models\Training;
 use Livewire\Component;
+use App\Models\Training;
+use Illuminate\Support\Facades\Auth;
 
-#[AllowDynamicProperties] class Calendar extends Component
+class Calendar extends Component
 {
+    protected $listeners = ['refreshCalendar' => '$refresh'];
+
+    public function getEventsProperty()
+    {
+        $user = Auth::user();
+
+        // Entraînements des équipes de l'utilisateur
+        $teamTrainings = Training::whereHas('team', function($query) use ($user) {
+            $query->whereIn('id', $user->teams->pluck('id'));
+        })->get()->map(function($training) {
+            return [
+                'title' => 'Entraînement ' . $training->team->name . ' : ' . $training->title,
+                'start' => $training->start,
+                'end' => $training->end,
+                'color' => '#2196F3' // Bleu pour les entraînements
+            ];
+        });
+
+        // Conférences de l'utilisateur
+        $userConferences = $user->conferences()->get()->map(function($conference) {
+            return [
+                'title' => 'Conférence : ' . $conference->title,
+                'start' => $conference->start,
+                'end' => $conference->end,
+                'color' => '#4CAF50' // Vert pour les conférences
+            ];
+        });
+
+        return $teamTrainings->merge($userConferences)->toArray();
+    }
+
     public function render()
     {
-        $trainings = Training::with('team')->get()->map(function($t) {
-            return [
-                'id'    => 'training-' . $t->id,
-                'title' => 'Entraînement : ' . $t->title . ($t->team ? ' (' . $t->team->name . ')' : ''),
-                'start' => $t->start,
-                'end'   => $t->end,
-                'color' => '#1976d2',
-                'type'  => 'entrainement'
-            ];
-        });
-
-        $conferences = Conference::with('team')->get()->map(function($c) {
-            return [
-                'id'    => 'conference-' . $c->id,
-                'title' => 'Conférence : ' . $c->title . ($c->team ? ' (' . $c->team->name . ')' : ''),
-                'start' => $c->start,
-                'end'   => $c->end,
-                'color' => '#43a047',
-                'type'  => 'conference'
-            ];
-        });
-
-        $this->events = $trainings->merge($conferences)->values()->toArray();
-
-        return view('livewire.calendar');
+        return view('livewire.calendar', [
+            'events' => $this->getEventsProperty() // Appelle explicitement la méthode
+        ]);
     }
 }

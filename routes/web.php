@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\APIMatchController;
+use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TrainingController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -34,6 +36,17 @@ Route::post('/teams', [TeamController::class, 'store'])->name('teams.store');
 
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('/calendar', function () {
+        return view('calendar');
+    })->name('calendar');
+
+    Route::resource('conferences', ConferenceController::class);
+    Route::post('conferences/{conference}/join', [ConferenceController::class, 'joinConference'])->name('conferences.join');
+
+    Route::resource('trainings', TrainingController::class);
+});
 
 
 // Groupe protégé par middleware admin

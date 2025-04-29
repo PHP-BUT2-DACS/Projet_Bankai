@@ -121,6 +121,11 @@
                     Teams
                 </a>
             </li>
+            <li class="me-2">
+                <a href="{{ route('calendar') }}" class="inline-flex items-center justify-center p-4 {{ request()->routeIs('calendar.*') ? 'text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500' : 'border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }} rounded-t-lg group" aria-current="{{ request()->routeIs('calendar.*') ? 'page' : 'false' }}">
+                    Calendrier
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

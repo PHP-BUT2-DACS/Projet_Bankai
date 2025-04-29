@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Bankai') }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.css" rel="stylesheet">
 
     <!-- Fonts & Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -74,5 +75,13 @@
     </div>
 
 </div>
+<!-- Scripts externes -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/locales-all.min.js"></script>
+
+<!-- Livewire Scripts -->
+@livewireScripts
+@stack('scripts')
 </body>
 </html>

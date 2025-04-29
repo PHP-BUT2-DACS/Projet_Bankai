@@ -84,4 +84,10 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function conferences()
+    {
+        return $this->belongsToMany(Conference::class, 'user_conference', 'user_id', 'conference_id')
+            ->withTimestamps();
+    }
 }
