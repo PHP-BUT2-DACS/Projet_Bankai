@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Events\TrainingCreated;
 use App\Models\Training;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -28,7 +29,9 @@ class TrainingController extends Controller
             'team_id' => 'nullable|exists:teams,id',
         ]);
 
-        Training::create($validated);
+        $training = Training::create($validated);
+
+        event(new TrainingCreated($training));
 
         return redirect()->route('trainings.index')->with('success', 'Entraînement créé.');
     }

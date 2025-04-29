@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ConferenceCreated;
 use App\Models\Conference;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -59,4 +60,16 @@ class ConferenceController extends Controller
         $conference->delete();
         return redirect()->route('conferences.index')->with('success', 'Conférence supprimée.');
     }
+
+    public function joinConference(Request $request, Conference $conference)
+    {
+        $user = auth()->user();
+        $user->conferences()->attach($conference->id);
+
+        // Déclenche l'événement
+        event(new ConferenceCreated($user));
+
+        return back()->with('success', 'Inscription confirmée.');
+    }
+
 }

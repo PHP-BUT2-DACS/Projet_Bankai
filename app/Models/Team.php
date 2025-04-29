@@ -20,7 +20,12 @@ class Team extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'app_user_team', 'team_id', 'app_user_username');
+        return $this->belongsToMany(User::class);
+    }
+
+    public function trainings()
+    {
+        return $this->hasMany(Training::class);
     }
 
     public function sport()
