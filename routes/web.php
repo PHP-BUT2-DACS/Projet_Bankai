@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\APIMatchController;
+use App\Http\Controllers\FootAPIController;
 use App\Http\Controllers\FavoriteSportSelectionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -10,7 +10,7 @@ use App\Http\Controllers\BlogController;
 Route::get('/posts', [BlogController::class, 'index'])->name('posts.index');
 
 // Route pour la page d'accueil (affiche les matchs)
-Route::get('/', [APIMatchController::class, 'index'])->name('matches.index');
+Route::get('/', [FootAPIController::class, 'index'])->name('matches.index');
 
 // Route pour le tableau de bord, avec middleware d'authentification et vérification
 Route::get('/dashboard', function () {
@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Route pour récupérer les matchs depuis l'API externe
-Route::get('/', [APIMatchController::class, 'index'])->name('matches.index');
+Route::get('/', [FootAPIController::class, 'index'])->name('matches.index');
 
 // Routes pour la selection du sport favorie
 Route::middleware(['auth'])->group(function () {
