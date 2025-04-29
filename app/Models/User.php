@@ -74,7 +74,12 @@ class User extends Authenticatable
 
     public function teams()
     {
-        return $this->belongsToMany(Team::class, 'app_user_team', 'app_user_username', 'team_id');
+        return $this->belongsToMany(Team::class);
+    }
+
+    public function conferences()
+    {
+        return $this->belongsToMany(Conference::class);
     }
 
     public function isAdmin()
