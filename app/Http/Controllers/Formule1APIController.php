@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class APIF1Controller extends Controller
+class Formule1APIController extends Controller
 {
     protected $apiBaseUrl = 'https://api-formula-1.p.rapidapi.com';
     protected $apiToken = '965f9473d0f6c1770b1584428c74cd12'; // Mets ta clé ici

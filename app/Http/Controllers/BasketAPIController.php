@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class APIBasketballController extends Controller
+class BasketAPIController extends Controller
 {
     protected $apiBaseUrl = 'https://v1.basketball.api-sports.io';
     protected $apiToken = '965f9473d0f6c1770b1584428c74cd12'; // Mets ta clé ici
