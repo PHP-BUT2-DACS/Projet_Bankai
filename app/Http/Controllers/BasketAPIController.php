@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 class BasketAPIController extends Controller
 {
     protected $apiBaseUrl = 'https://v1.basketball.api-sports.io';
-    protected $apiToken = '965f9473d0f6c1770b1584428c74cd12'; // Mets ta clé ici
+    protected $apiToken = '965f9473d0f6c1770b1584428c74cd12';
 
     // 1. Récupérer les ligues (optionnel : filtrer par pays ou saison)
     public function leagues(Request $request)

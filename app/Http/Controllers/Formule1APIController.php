@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Http;
 class Formule1APIController extends Controller
 {
     protected $apiBaseUrl = 'https://api-formula-1.p.rapidapi.com';
-    protected $apiToken = '965f9473d0f6c1770b1584428c74cd12'; // Mets ta clé ici
+    protected $apiToken = '965f9473d0f6c1770b1584428c74cd12';
 
     // 1. Récupérer les saisons disponibles
     public function seasons()
