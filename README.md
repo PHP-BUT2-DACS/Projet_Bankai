@@ -22,7 +22,11 @@ Vous y trouverez toutes vos **informations personnelles** :
 - Date de création du compte
 - Vos abonnés, vos abonnements et vos posts
 
-🔧 **Pensez à compléter ou modifier votre profil** si nécessaire.
+🔧 **Pensez à compléter ou modifier votre profil**.
+
+Il existe aussi un compte admin : 
+- mail : admin@admin.com
+- Mdp : password
 
 ---
 
