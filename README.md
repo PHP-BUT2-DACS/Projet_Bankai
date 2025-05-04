@@ -1,4 +1,4 @@
-![Bankai](https://www.icegif.com/wp-content/uploads/2023/03/icegif-988.gif)
+ ![Bankai](https://www.icegif.com/wp-content/uploads/2023/03/icegif-988.gif)
 
 # 🏆 Bankai — Réseau Social Sportif
 
@@ -22,11 +22,7 @@ Vous y trouverez toutes vos **informations personnelles** :
 - Date de création du compte
 - Vos abonnés, vos abonnements et vos posts
 
-🔧 **Pensez à compléter ou modifier votre profil**.
-
-Il existe aussi un compte admin : 
-- mail : admin@admin.com
-- Mdp : password
+🔧 **Pensez à compléter ou modifier votre profil** si nécessaire.
 
 ---
 
@@ -105,6 +101,31 @@ Dans le projet
 npm run build  
 php artisan serve  
 ```
+🔐 Configuration SSL pour PHP et l’API
+Pour éviter les erreurs SSL lors des requêtes externes (ex: API Sports), suivez ces étapes :
+
+Téléchargez le fichier cacert.pem
+- 👉 https://curl.se/ca/cacert.pem
+
+Enregistrez-le par exemple dans :
+- C:\wamp64\bin\php\cacert.pem
+  
+ou
+- C:\xampp\php\extras\ssl\cacert.pem
+
+Configurez php.ini pour utiliser ce certificat
+
+Ouvrez le fichier php.ini (vous pouvez utiliser php --ini pour en connaître le chemin).
+
+Recherchez la ligne suivante et dé-commentez-la (enlevez le ;), puis ajoutez le chemin complet :
+```bash
+curl.cainfo = "C:\wamp64\bin\php\cacert.pem"
+```
+Faites de même pour :
+```bash
+openssl.cafile = "C:\wamp64\bin\php\cacert.pem"
+```
+💡 Redémarrez votre serveur local après avoir modifié php.ini.
 
 ## 📚 Sources
 
