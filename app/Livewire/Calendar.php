@@ -99,4 +99,38 @@ class Calendar extends Component
             'events' => $this->getEventsProperty() // Appelle explicitement la méthode
         ]);
     }
+
+    // Ajoute cette méthode à ton composant Calendar
+    public function exportToCsv()
+    {
+        $events = $this->getEventsProperty();
+
+        // Crée le contenu CSV
+        $csvContent = "Titre,Début,Fin,Type,Participation\n";
+
+        foreach ($events as $event) {
+            $type = str_contains($event['title'], 'Entraînement') ? 'Entraînement' : 'Conférence';
+            $participation = $event['extendedProps']['isParticipating'] ?? false ? 'Inscrit' : 'Non-inscrit';
+
+            $csvContent .= sprintf(
+                    '"%s",%s,%s,%s,%s',
+                    $event['title'],
+                    $event['start'],
+                    $event['end'],
+                    $type,
+                    $participation
+                ) . "\n";
+        }
+
+        // Retourne le fichier en téléchargement
+        return response()->streamDownload(
+            fn () => print($csvContent),
+            'calendrier-' . now()->format('Y-m-d') . '.csv',
+            [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename="calendrier.csv"',
+            ]
+        );
+    }
+
 }
