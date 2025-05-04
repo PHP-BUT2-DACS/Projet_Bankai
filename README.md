@@ -1,58 +1,129 @@
-Découverte du projet : ligne directrice
-======
+![Bankai](https://www.icegif.com/wp-content/uploads/2023/03/icegif-988.gif)
 
-Le réseau social porte sur 3 sports qui nous tenait à cœur : Le football, le basketball et la Formule 1.
+# 🏆 Bankai — Réseau Social Sportif
 
-Pour commencer, vous pouvez créer un compte à votre nom.  
-Vous tomberez ensuite sur la page que nous avons choisi pour être la page principale : La page des posts des utilisateurs.  
-Avant de plus explorer cette page, vous pouvez vous rendre dans la sidebar droite puis dans profile.  
-  
-Ici vous pouvez consulter vos informations personnelles soit le pseudo, nom, prénom, photo de profile, sports favoris, team, localisation, date de création du compte, les abonnées, abonnements et posts.  
-Vous pouvez commencer par modifier votre profil pour finir de rentrer vos informations.  
-  
-Vous pouvez ensuite créer votre premier post :  
-Un post contient les éléments traditionnels d'un post ainsi que le sport concerné par le post pour que les utilisateurs s'y retrouve plus simplement en fonction de leurs gouts.  
-  
-En retournant sur la page des posts vous pouvez constaté les posts des autres utilisateurs dans l'ordre chronologique ainsi que la possibilité de voir les posts concernant les sports que vous préférer ou de tous les voir.  
-Vous pouvez supprimer vos posts, liker les posts et cliquer sur le pseudo du créateur du post pour consulter son profil.  
-Vous pouvez ainsi vous abonner et constater que vous êtes bien dans ses abonnés dans la section du bas.  
-  
-Vous pouvez aussi rechercher des utilisateurs, des posts ou des équipes en cliquant sur Rechercher.  
-Par exemple vous voulez vous abonner a Cristiano Ronaldo, vous pouvez chercher cristiano et ainsi vous abonner.  
-Ca peut aussi être pratique si vous chercher un post qui parle de quelque chose en particulier.  
-Vous pouvez aussi rechercher une équipe pour trouver la votre.  
-  
-Peut être que vous n'avez pas d'équipe dans la vraie vie, aussi, vous pouvez créer la votre en vous rendant dans l'onglet team.  
-Vous y retrouverez aussi toutes les équipes existantes.  
-  
-Vous pouvez consulter les matchs en fonctions des sports et des dates dans l'onglet Matchs.  
-  
-Vous pouvez consulter et participer à des entrainements et conférence dans l'onglet calendrier.  
-Par défaut, vous voyer toutes les conférences mais vous pouvez choisir d'y participer en cliquant dessus. (Il faut rafraichir la page pour réafficher le calendrier, problème qu'on a pas réussi à résoudre)  
-Les entrainements concerne une équipe, ainsi vous ne voyez que les entrainements de votre équipe et vous y participer par défaut.  
-Vous pouvez aussi créer vous même des conférences ou des entrainements avec un titre et une date.  
+## 🎯 Découverte du projet
 
-Prérequis
------------
+Bankai est un réseau social centré autour de **trois sports qui nous passionnent** :  
+⚽ **Football**, 🏀 **Basketball**, et 🏎️ **Formule 1**.
 
-git clone https://github.com/PHP-BUT2-DACS/Projet_Bankai.git  
+---
+
+## 🧭 Ligne directrice
+
+### 👤 Création de compte & profil  
+Commencez par créer un compte à votre nom.  
+Une fois connecté, vous arrivez sur **la page principale** : celle des **posts des utilisateurs**.
+
+Avant d'explorer plus loin, rendez-vous dans la **sidebar droite > "Profil"** :  
+Vous y trouverez toutes vos **informations personnelles** :
+- Pseudo, nom, prénom, photo de profil
+- Sports favoris, équipe, localisation
+- Date de création du compte
+- Vos abonnés, vos abonnements et vos posts
+
+🔧 **Pensez à compléter ou modifier votre profil** si nécessaire.
+
+---
+
+### ✍️ Créer un post
+
+Une fois votre profil prêt, créez votre **premier post**.
+
+Chaque post contient :
+- Un titre
+- Un message
+- Un sport associé (pour un filtrage plus pertinent selon les centres d’intérêt)
+
+Vous retrouverez ensuite vos posts et ceux des autres dans un **fil chronologique** sur la page principale.
+
+Vous pouvez :
+- 🔥 Liker des posts  
+- 🗑️ Supprimer les vôtres  
+- 🔍 Filtrer par sport ou voir tous les posts  
+- 👤 Cliquer sur le pseudo d’un utilisateur pour visiter son profil, vous abonner, etc.
+
+---
+
+### 🔎 Rechercher
+
+Cliquez sur **"Rechercher"** pour trouver :
+- Des **utilisateurs** (ex : "Cristiano Ronaldo")
+- Des **posts**
+- Des **équipes**
+
+Vous pouvez ainsi vous abonner à d'autres utilisateurs, retrouver des contenus spécifiques, ou identifier votre future équipe favorite.
+
+---
+
+### 🛡️ Les équipes
+
+Pas encore d’équipe ? Créez la vôtre dans l’onglet **"Team"**.  
+Vous y trouverez aussi la liste de toutes les équipes déjà créées.
+
+---
+
+### 📅 Matchs & Événements
+
+- L’onglet **"Matchs"** permet de consulter les matchs à venir ou passés selon les **sports et les dates**.
+- L’onglet **"Calendrier"** permet de :
+  - 📌 **Créer ou rejoindre** des **conférences** et **entraînements**
+  - ✅ Participer à une conférence (cliquer dessus)
+  - 📅 Voir les événements programmés (⚠️ *Nécessite un rafraîchissement manuel après action*)
+
+> ℹ️ Les entraînements sont **associés à votre équipe**. Vous ne voyez que ceux de votre propre équipe, et vous y êtes inscrit automatiquement.
+
+---
+
+## ⚙️ Prérequis & Installation
+
+1. **Cloner le dépôt :**
+   ```bash
+   git clone https://github.com/PHP-BUT2-DACS/Projet_Bankai.git
+   ``` 
   
 en console admin :  
+```bash
 cd "project_directory"  
 mkdir bootstrap\cache  
 mkdir storage\framework\views  
 mkdir storage\framework\cache  
 mkdir storage\framework\sessions  
-  
+  ```
 Changer le database.sqlite de dossier (/database)
-  
+  ```bash
 Composer install  
-npm install  
+npm install
+```
 .env.example -> .env  
-Dans le projet :  
+Dans le projet
+```bash:  
 npm run build  
 php artisan serve  
+```
 
+## 📚 Sources
 
-Sources : 
------------
+### 🔌 API utilisée :
+- [API Sports](https://api-sports.io/)
+
+### 📖 Tutoriels & Documentation :
+- [Blog Laravel – Kinsta](https://kinsta.com/fr/blog/blog-laravel/)
+- [Laravel Jetstream : rejoindre une équipe à l'inscription (Stack Overflow)](https://stackoverflow.com/questions/68557588/laravel-jetstream-how-to-join-a-default-team-at-registration)
+- [Laravel Starter Kits — Documentation officielle](https://laravel.com/docs/10.x/starter-kits)
+- [Fonction "favoris" dans Laravel (Stack Overflow)](https://stackoverflow.com/questions/67518401/favorite-functionality-for-my-laravel-application)
+- [Laravel Markable](https://laravel-news.com/laravel-markable)
+- [Moteur de recherche dans Laravel (Medium)](https://medium.com/@iqbal.ramadhani55/search-in-laravel-e0e20f329b01)
+- [Intégration FullCalendar avec Livewire](https://laravel.sillo.org/posts/liveware-fullcalendar)
+
+### 🎥 Vidéos :
+- [Créer une app Laravel 9 avec Laravel Breeze et Livewire (YouTube)](https://www.youtube.com/watch?v=UbZ35yWnpgU)
+- [Créer un réseau social avec Laravel et Jetstream (YouTube)](https://www.youtube.com/watch?v=UgIvT5L92Rg&t=30s)
+- [Laravel Livewire FullCalendar Event CRUD (YouTube)](https://www.youtube.com/watch?v=ZNETtfaZbVQ)
+
+### 🧠 Aides à la réflexion :
+- Utilisation de **Grok**, **ChatGPT**, **Claude**, **DeepSeek** et **Perplexity**
+
+### ⭐ Mention spéciale :
+- Le meilleur cours PHP jamais créé :  
+  👉 [Cours de PHP par Julien](https://phd.julien-cpsn.com/courses/PHP/)
