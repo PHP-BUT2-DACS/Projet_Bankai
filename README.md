@@ -44,6 +44,8 @@ mkdir storage\framework\views
 mkdir storage\framework\cache  
 mkdir storage\framework\sessions  
   
+Changer le database.sqlite de dossier (/database)
+  
 Composer install  
 npm install  
 .env.example -> .env  
