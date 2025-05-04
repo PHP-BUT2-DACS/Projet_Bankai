@@ -1,3 +1,39 @@
+
+@import '@fullcalendar/daygrid/main.css';
+@import '@fullcalendar/timegrid/main.css';
+@import '@fullcalendar/list/main.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.dark .fc {
+    color: #d1d5db;
+}
+.dark .fc .fc-daygrid-day-number,
+.dark .fc .fc-col-header-cell-cushion {
+    color: #d0d0d0;
+}
+.dark .fc .fc-daygrid-day {
+    background-color: #1f2937;
+}
+.dark .fc .fc-daygrid-day.fc-day-today {
+    background-color: #374151;
+}
+.dark .fc .fc-button {
+    background-color: #4b5563;
+    border-color: #4b5563;
+    color: #d1d5db;
+}
+.dark .fc .fc-button:hover {
+    background-color: #6b7280;
+    border-color: #6b7280;
+}
+.dark .fc .fc-button.fc-button-active {
+    background-color: #2563eb;
+    border-color: #2563eb;
+}
+
+.fc-daygrid-day-number, .fc-toolbar-title {
+    color: #d0d0d0;
+}

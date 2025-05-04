@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
+    use HasFactory, Notifiable, Searchable;
+
     protected $table = 'users';
     protected $primaryKey = 'id';
     public $incrementing = true;
@@ -15,7 +20,6 @@ class User extends Authenticatable
 
     protected $fillable = [
         'username',
-        'mail_address',
         'name',
         'lastname',
         'password',
@@ -27,6 +31,21 @@ class User extends Authenticatable
         'active',
         'email', // Ajout de email pour correspondre à Breeze
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'username' => $this->username,
+        ];
+    }
 
     public function posts(): HasMany
     {
@@ -45,21 +64,6 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
-    /**
-     * Get the email attribute (mapped to mail_address).
-     */
-    public function getEmailAttribute()
-    {
-        return $this->attributes['mail_address'];
-    }
-
-    /**
-     * Set the email attribute (mapped to mail_address).
-     */
-    public function setEmailAttribute($value): void
-    {
-        $this->attributes['mail_address'] = $value;
-    }
     public function likes(): BelongsToMany
     {
         return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')
@@ -74,5 +78,16 @@ class User extends Authenticatable
     public function teams()
     {
         return $this->belongsToMany(Team::class, 'app_user_team', 'user_id', 'team_id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function conferences()
+    {
+        return $this->belongsToMany(Conference::class, 'user_conference', 'user_id', 'conference_id')
+            ->withTimestamps();
     }
 }

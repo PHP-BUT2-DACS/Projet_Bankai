@@ -107,6 +107,17 @@
             </div>
         @endif
 
+        @admin
+        <div class="mt-4 flex justify-end">
+            <form action="{{ route('admin.users.delete', $user->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    Supprimer
+                </button>
+            </form>
+        </div>
+        @endadmin
 
         <!-- Navigation -->
         <div class="border-b">
@@ -143,7 +154,7 @@
                         <!-- Image du post -->
                         @if($post->image)
                             <div class="mt-2">
-                                <img src="{{ Storage::url($post->image) }}" class="w-100 h-100 object-contain rounded-lg" alt="Image du post">
+                                <img src="{{ asset('storage/' . $post->image) }}" class="w-100 h-100 object-contain rounded-lg" alt="Image du post">
                             </div>
                         @endif
 

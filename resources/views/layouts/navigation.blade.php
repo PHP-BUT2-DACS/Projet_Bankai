@@ -30,6 +30,12 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        @admin
+                        <x-responsive-nav-link :href="route('admin.dashboard')">
+                            {{ __('Dashboard admin') }}
+                        </x-responsive-nav-link>
+                        @endadmin
+
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dropdown-link>
@@ -76,6 +82,10 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                <x-responsive-nav-link :href="route('admin.dashboard')">
+                    {{ __('Dashboard admin') }}
+                </x-responsive-nav-link>
+
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
@@ -109,6 +119,11 @@
             <li class="me-2">
                 <a href="{{ route('teams.index') }}" class="inline-flex items-center justify-center p-4 {{ request()->routeIs('teams.*') ? 'text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500' : 'border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }} rounded-t-lg group" aria-current="{{ request()->routeIs('teams.*') ? 'page' : 'false' }}">
                     Teams
+                </a>
+            </li>
+            <li class="me-2">
+                <a href="{{ route('calendar') }}" class="inline-flex items-center justify-center p-4 {{ request()->routeIs('calendar.*') ? 'text-blue-600 border-b-2 border-blue-600 dark:text-blue-500 dark:border-blue-500' : 'border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300' }} rounded-t-lg group" aria-current="{{ request()->routeIs('calendar.*') ? 'page' : 'false' }}">
+                    Calendrier
                 </a>
             </li>
         </ul>

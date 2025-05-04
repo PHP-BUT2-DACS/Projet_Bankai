@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
         if (DB::getDriverName() === 'sqlite') {
             DB::statement('PRAGMA foreign_keys = ON;');
         }
+        Blade::if('admin', function () {
+            return Auth::check() && Auth::user()->role === 'admin';
+        });
     }
 }

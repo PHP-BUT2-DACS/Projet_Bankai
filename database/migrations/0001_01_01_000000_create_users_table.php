@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('favorite_sports', 255)->nullable();
             $table->text('follower_list')->nullable();
             $table->text('followed_list')->nullable();
+            $table->text('bio')->nullable();
+            $table->string('location', 100)->nullable();
+            $table->string('avatar', 255)->nullable();
             $table->string('active', 10)->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -66,7 +66,7 @@ class PostController extends Controller
     public function index(): View
     {
         $posts = Post::query()
-            ->with(['user', 'likedBy'])
+            ->with(['user', 'likedBy', 'sport'])
             ->latest()
             ->get();
 

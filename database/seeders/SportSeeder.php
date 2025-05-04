@@ -1,20 +1,20 @@
 <?php
 
 namespace Database\Seeders;
+use App\Models\Sport;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+
 
 class SportSeeder extends Seeder
 {
     public function run(): void
     {
         $sports = [
-            'Football', 'Basketball', 'Tennis', 'Volleyball', 'Rugby',
-            'Natation', 'Cyclisme', 'Athlétisme', 'Golf', 'Boxe'
+            'Football', 'Basketball', 'Formule 1'
         ];
 
         foreach ($sports as $sport) {
-            \App\Models\Sport::create(['name' => $sport]);
+            Sport::create(['name' => $sport]);
         }
     }
 }

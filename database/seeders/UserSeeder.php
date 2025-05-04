@@ -1,48 +1,33 @@
 <?php
+
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('app_users')->insert([
-            [
-                'username' => 'leo_messi',
-                'mail_address' => 'messi@example.com',
-                'name' => 'Lionel',
-                'lastname' => 'Messi',
-                'password' => Hash::make('password123'),
-                'favorite_sports' => 'Football',
-                'follower_list' => null,
-                'followed_list' => null,
-                'active' => 'yes',
-            ],
-            [
-                'username' => 'usain_bolt',
-                'mail_address' => 'bolt@example.com',
-                'name' => 'Usain',
-                'lastname' => 'Bolt',
-                'password' => Hash::make('password123'),
-                'favorite_sports' => 'Athlétisme',
-                'follower_list' => null,
-                'followed_list' => null,
-                'active' => 'yes',
-            ],
-            [
-                'username' => 'serena_williams',
-                'mail_address' => 'serena@example.com',
-                'name' => 'Serena',
-                'lastname' => 'Williams',
-                'password' => Hash::make('password123'),
-                'favorite_sports' => 'Tennis',
-                'follower_list' => null,
-                'followed_list' => null,
-                'active' => 'yes',
-            ],
+        User::factory()->count(10)->create();
+
+        // Optionally create an admin
+        User::create([
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+            'username' => 'admin',
+            'lastname' => 'Root',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+            'favorite_sports' => 'football,basket',
+            'bio' => 'Administrator of the platform.',
+            'location' => 'Paris',
+            'avatar' => asset('images/profile.png'),
+            'active' => 'yes',
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
         ]);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conference;
 use App\Models\Sport;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -114,7 +116,7 @@ class UserController extends Controller
 
     public function favoriteSports()
     {
-        return $this->belongsToMany(Sport::class, 'favorite_sport_selection');
+        return $this->belongsToMany(Sport::class, 'favorite_sport_selection', 'user_id', 'sport_id');
     }
 
     public function toSearchableArray()
@@ -127,5 +129,10 @@ class UserController extends Controller
     public function teams()
     {
         return $this->belongsToMany(Team::class, 'app_user_team', 'app_user_username', 'team_id');
+    }
+
+    public function conferences()
+    {
+        return $this->belongsToMany(Conference::class, 'user_conference', 'user_id', 'conference_id');
     }
 }
