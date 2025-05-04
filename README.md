@@ -12,7 +12,7 @@ Un post contient les éléments traditionnels d'un post ainsi que le sport conce
 En retournant sur la page des posts vous pouvez constaté les posts des autres utilisateurs dans l'ordre chronologique ainsi que la possibilité de voir les posts concernant les sports que vous préférer ou de tous les voir.
 Vous pouvez supprimer vos posts, liker les posts et cliquer sur le pseudo du créateur du post pour consulter son profil.
 Vous pouvez ainsi vous abonner et constater que vous êtes bien dans ses abonnés dans la section du bas.
-Vous pouvez aussi rechercher des utilisateurs, des posts ou des équipes en cli.
+Vous pouvez aussi rechercher des utilisateurs, des posts ou des équipes en cliquant sur Rechercher.
 Par exemple vous voulez vous abonner a Cristiano Ronaldo, vous pouvez chercher cr7 et ainsi vous abonner.
 Ca peut aussi être pratique si vous chercher un post qui parle de quelque chose en particulier.
 Vous pouvez aussi rechercher une équipe pour trouver la votre.
