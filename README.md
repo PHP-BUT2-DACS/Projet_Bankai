@@ -24,6 +24,10 @@ Vous y trouverez toutes vos **informations personnelles** :
 
 🔧 **Pensez à compléter ou modifier votre profil** si nécessaire.
 
+Il existe aussi un compte admin : 
+- mail : admin@admin.com
+- Mdp : password
+
 ---
 
 ### ✍️ Créer un post
