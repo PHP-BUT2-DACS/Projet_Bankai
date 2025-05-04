@@ -50,3 +50,7 @@ npm install
 Dans le projet :  
 npm run build  
 php artisan serve  
+
+
+Sources : 
+-----------
