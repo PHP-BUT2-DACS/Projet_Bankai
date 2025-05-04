@@ -23,7 +23,7 @@
                 <div class="lg:col-span-7">
                     <h1 class="text-4xl font-extrabold text-white sm:text-5xl sm:tracking-tight lg:text-6xl">Bienvenue sur <span class="text-blue-500">Bankai</span></h1>
                     <p class="mt-6 text-xl text-gray-400 max-w-3xl">
-                        Rejoignez la communauté et partagez vos passions avec des personnes du monde entier.
+                        Rejoignez la communauté et partagez votre passion pour le sport avec des personnes du monde entier.
                     </p>
                     <div class="mt-10 sm:flex sm:space-x-4">
                         <a href="{{ route('register') }}" class="w-full sm:w-auto flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10">
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="ml-4">
                                         <h3 class="text-lg font-medium text-white">Contenu personnalisé</h3>
-                                        <p class="text-sm text-gray-400">Un flux adapté à vos centres d'intérêt</p>
+                                        <p class="text-sm text-gray-400">Un flux adapté à vos sports préférés</p>
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\APIMatchController;
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
@@ -11,7 +10,11 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 
-Route::get('/matches', [APIMatchController::class, 'index'])->name('matches.index');
+Route::get('/matches', [App\Http\Controllers\SportsMatchController::class, 'index'])->name('matches.index');
+
+Route::get('/settings', function () {
+    return view('profile.oldedit');
+})->name('settings');
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index')->middleware('auth');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create')->middleware('auth');
@@ -65,11 +68,11 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-/*
+
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});*/
+    Route::get('/settings', [ProfileController::class, 'edit'])->name('profile.oldedit');
+    Route::patch('/settings', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/settings', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 require __DIR__.'/auth.php';

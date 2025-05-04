@@ -26,10 +26,6 @@
         <a href="{{ route('search') }}" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
             <img src="{{ asset('images/search.png') }}" alt="Explore" class="w-6 h-6 mr-2"> Explore
         </a>
-        <!-- Notifications -->
-        <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
-            <img src="{{ asset('images/notif.png') }}" alt="Notifications" class="w-6 h-6 mr-2"> Notifications
-        </a>
         <!-- Settings -->
         <a href="#" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
             <img src="{{ asset('images/settings.png') }}" alt="Settings" class="w-6 h-6 mr-2"> Settings
@@ -42,7 +38,7 @@
         <!-- Poster (visible uniquement pour les utilisateurs connectés) -->
         @if (Auth::check())
             <a href="{{ route('posts.create') }}" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
-                Poster
+                <img src="{{ asset('images/posts.png') }}" alt="Profile" class="w-6 h-6 mr-2"> Poster
             </a>
         @endif
     </div>
