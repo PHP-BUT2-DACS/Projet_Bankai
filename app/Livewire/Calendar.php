@@ -6,6 +6,7 @@ use App\Models\Conference;
 use Livewire\Component;
 use App\Models\Training;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class Calendar extends Component
 {
@@ -98,5 +99,34 @@ class Calendar extends Component
         return view('livewire.calendar', [
             'events' => $this->getEventsProperty() // Appelle explicitement la méthode
         ]);
+    }
+
+    public function exportToCsv(): StreamedResponse
+    {
+        $events = $this->getEventsProperty();
+
+        $filename = 'calendrier-' . now()->format('Y-m-d') . '.csv';
+
+        return response()->streamDownload(function() use ($events) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, ['Titre', 'Début', 'Fin', 'Type', 'Participation']);
+
+            foreach ($events as $event) {
+                $type = str_contains($event['title'], 'Entraînement') ? 'Entraînement' : 'Conférence';
+                $participation = $event['extendedProps']['isParticipating'] ?? false ? 'Inscrit' : 'Non-inscrit';
+
+                fputcsv($handle, [
+                    $event['title'],
+                    $event['start'],
+                    $event['end'],
+                    $type,
+                    $participation
+                ]);
+            }
+
+            fclose($handle);
+        }, $filename);
+
+
     }
 }
