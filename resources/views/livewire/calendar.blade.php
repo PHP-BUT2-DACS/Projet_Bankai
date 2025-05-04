@@ -109,6 +109,11 @@
                class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
                 Nouvel Entraînement
             </a>
+
+            <button wire:click="exportToCsv"
+                    class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                Exporter en CSV
+            </button>
         </div>
     @endif
 
@@ -190,6 +195,10 @@
                 if (calendarEl && !calendarEl.innerHTML.trim()) {
                     calendar = initCalendar(@json($events));
                 }
+            });
+
+            document.querySelector('[wire\\:click="exportToCsv"]').addEventListener('click', function() {
+                Livewire.emit('exportToCsv');
             });
         });
     </script>
