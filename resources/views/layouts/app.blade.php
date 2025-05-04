@@ -16,20 +16,20 @@
 @yield('scripts')
 <div class="min-h-screen flex">
 
-    <!-- Sidebar -->
-    <div class="w-1/4 bg-gray-900 text-white p-6 flex flex-col items-center shadow-lg">
+    <!-- Sidebar fixe -->
+    <div class="w-1/5 bg-gray-900 text-white p-6 flex flex-col items-center shadow-lg fixed h-screen overflow-y-auto">
         <!-- Home (Accueil) -->
         <a href="{{ route('posts.index') }}" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
-            <img src="{{ asset('images/home.png') }}" alt="Home" class="w-6 h-6 mr-2"> Home
+            <img src="{{ asset('images/home.png') }}" alt="Home" class="w-6 h-6 mr-2"> Accueil
         </a>
         <!-- Explore -->
         <a href="{{ route('search') }}" class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
-            <img src="{{ asset('images/search.png') }}" alt="Explore" class="w-6 h-6 mr-2"> Explore
+            <img src="{{ asset('images/search.png') }}" alt="Explore" class="w-6 h-6 mr-2"> Rechercher
         </a>
         <!-- Profile -->
         <a href="{{ Auth::check() ? route('profile.show', Auth::user()->username) : route('login') }}"
            class="text-white p-4 mb-4 rounded-lg hover:bg-blue-500 flex items-center w-full">
-            <img src="{{ asset('images/profile.png') }}" alt="Profile" class="w-6 h-6 mr-2"> Profile
+            <img src="{{ asset('images/profile.png') }}" alt="Profile" class="w-6 h-6 mr-2"> Profil
         </a>
         <!-- Poster (visible uniquement pour les utilisateurs connectés) -->
         @if (Auth::check())
@@ -39,8 +39,8 @@
         @endif
     </div>
 
-    <!-- Main Content -->
-    <div class="w-1/4 flex-1">
+    <!-- Contenu principal avec marges pour les sidebars -->
+    <div class="flex-1 mx-[20%] mr-[20%]"> <!-- Marge gauche 25% et droite 25% -->
         @include('layouts.navigation')
 
         <!-- Page Heading -->
@@ -58,13 +58,15 @@
         </main>
     </div>
 
-    <!-- Suggestions -->
-    <div class="w-1/4 bg-gray-900 text-white p-6 shadow-lg">
-        <h2 class="text-lg text-blue-500 font-semibold mb-4">Trending Events</h2>
-        <div class="bg-gray-800 p-3 rounded-lg mb-3">🏀 NBA Finals</div>
-        <div class="bg-gray-800 p-3 rounded-lg mb-3">⚽ Champions League</div>
-        <div class="bg-gray-800 p-3 rounded-lg">🎾 Roland Garros</div>
+    <!-- Sidebar droite avec image Yamamoto -->
+    <div class="w-1/5 bg-gray-900 fixed right-0 h-screen">
+
     </div>
+
+    <!-- Image Yamamoto en position fixed en dehors de toute sidebar -->
+    <img src="{{ asset('images/yamamoto.png') }}" alt="Yamamoto"
+         class="fixed bottom-0 right-0 h-[55vh] w-auto object-contain z-10"
+         style="transform: translateX(32%);">
 
 </div>
 <!-- Scripts externes -->

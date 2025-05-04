@@ -55,23 +55,6 @@
                 @enderror
             </div>
 
-            <!-- Champ Équipe -->
-            <div class="mb-4">
-                <label for="team_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Équipe (optionnel)</label>
-                <select name="team_id" id="team_id"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white @error('team_id') border-red-500 @enderror">
-                    <option value="">-- Aucune équipe --</option>
-                    @foreach ($teams as $team)
-                        <option value="{{ $team->id }}" {{ old('team_id') == $team->id ? 'selected' : '' }}>
-                            {{ $team->name }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('team_id')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-            </div>
-
             <!-- Bouton Soumettre -->
             <div class="flex justify-end">
                 <button type="submit"

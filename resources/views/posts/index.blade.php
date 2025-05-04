@@ -2,11 +2,8 @@
 
 @section('content')
     <div class="max-w-4xl mx-auto mt-10">
-
-
-        <!-- Contenu de l'onglet Posts -->
         <div class="mt-6">
-            <h1 class="text-3xl font-bold text-center text-gray-900 dark:text-white">📢 Derniers Articles Sportifs</h1>
+            <h1 class="text-3xl font-bold text-center text-gray-900 dark:text-white mb-4">📢 Derniers Articles Sportifs</h1>
 
             <!-- Afficher les messages de succès ou d'erreur -->
             @if (session('success'))
@@ -20,9 +17,36 @@
                 </div>
             @endif
 
+            <!-- Bouton pour basculer entre "Tous les posts" et "Mes sports favoris" -->
+            @if (Auth::check() && Auth::user()->favoriteSports()->count() > 0)
+                <div class="flex justify-center mb-4">
+                    <a href="{{ route('posts.index', ['filter' => 'all']) }}"
+                       class="px-4 py-2 mr-2 rounded-lg {{ request('filter') != 'favorites' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300' }}">
+                        Tous les sports
+                    </a>
+                    <a href="{{ route('posts.index', ['filter' => 'favorites']) }}"
+                       class="px-4 py-2 rounded-lg {{ request('filter') == 'favorites' ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300' }}">
+                        Mes sports favoris
+                    </a>
+                </div>
+            @endif
+
             <!-- Liste des posts -->
             <div class="mt-6 space-y-6">
-                @forelse ($posts as $post)
+                @php
+                    // Déterminer quels posts afficher
+                    $displayPosts = $posts;
+
+                    // Si l'utilisateur est connecté et a des sports favoris et si le filtre est activé
+                    if (Auth::check() && Auth::user()->favoriteSports()->count() > 0 && request('filter') == 'favorites') {
+                        $favoriteSportIds = Auth::user()->favoriteSports()->pluck('sports.id')->toArray();
+                        $displayPosts = $posts->filter(function($post) use ($favoriteSportIds) {
+                            return $post->sport_id && in_array($post->sport_id, $favoriteSportIds);
+                        });
+                    }
+                @endphp
+
+                @forelse ($displayPosts as $post)
                     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
 
                         @if ($post->sport)
@@ -40,7 +64,7 @@
                         <!-- Image du post -->
                         @if ($post->image)
                             <div class="mt-4">
-                                <img src="{{ Storage::url($post->image) }}" class="w-full max-w-[400px] max-h-[300px] object-contain rounded-lg" alt="Image du post">
+                                <img src="{{ asset('storage/' . $post->image) }}" class="w-full max-w-[400px] max-h-[300px] object-contain rounded-lg" alt="Image du post">
                             </div>
                         @endif
 
@@ -57,33 +81,35 @@
                         <span class="text-sm text-gray-500 dark:text-gray-400 likes-count" data-post-id="{{ $post->id }}">
                             {{ $post->likedBy()->count() }}
                         </span>
-                        @if (Auth::check())
-                            <button class="text-sm like-button {{ Auth::user()->likes()->where('post_id', $post->id)->exists() ? 'text-red-500' : 'text-gray-400' }}"
-                                data-post-id="{{ $post->id }}"
-                                data-action="{{ Auth::user()->likes()->where('post_id', $post->id)->exists() ? 'unlike' : 'like' }}">
-                                ❤️
-                            </button>
-                        @endif
+                            @if (Auth::check())
+                                <button class="text-sm like-button {{ Auth::user()->likes()->where('post_id', $post->id)->exists() ? 'text-red-500' : 'text-gray-400' }}"
+                                        data-post-id="{{ $post->id }}"
+                                        data-action="{{ Auth::user()->likes()->where('post_id', $post->id)->exists() ? 'unlike' : 'like' }}">
+                                    ❤️
+                                </button>
+                            @endif
                         </div>
 
-
-                            <!-- Bouton de suppression (visible uniquement pour l'auteur) -->
-                            @if (Auth::check() && (Auth::id() === $post->user_id || (Auth::user()->role === 'admin')))
-                                <div class="mt-4 flex justify-end">
-                                    <form action="{{ Auth::user()->role === 'admin' ? route('admin.posts.delete', $post->id) : route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce post ?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
-                                            Supprimer
-                                        </button>
-                                    </form>
-                                </div>
-                            @endif
-
+                        <!-- Bouton de suppression (visible uniquement pour l'auteur) -->
+                        @if (Auth::check() && (Auth::id() === $post->user_id || (Auth::user()->role === 'admin')))
+                            <div class="mt-4 flex justify-end">
+                                <form action="{{ Auth::user()->role === 'admin' ? route('admin.posts.delete', $post->id) : route('posts.destroy', $post) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce post ?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                                        Supprimer
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                     </div>
                 @empty
                     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md text-gray-500">
-                        Aucun post pour le moment.
+                        @if (Auth::check() && Auth::user()->favoriteSports()->count() > 0 && request('filter') == 'favorites')
+                            Aucun post concernant vos sports favoris pour le moment.
+                        @else
+                            Aucun post pour le moment.
+                        @endif
                     </div>
                 @endforelse
             </div>

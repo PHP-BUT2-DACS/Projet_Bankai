@@ -14,14 +14,11 @@ class Team extends Model
     protected $table = 'team';
     protected $fillable = ['name', 'sport_id'];
 
-    public function homeMatches()
+    public function toSearchableArray()
     {
-        return $this->hasMany(Matche::class, 'home_team_id');
-    }
-
-    public function awayMatches()
-    {
-        return $this->hasMany(Matche::class, 'away_team_id');
+        return [
+            'name' => $this->name,
+        ];
     }
 
     public function users()

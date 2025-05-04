@@ -44,7 +44,7 @@ class Calendar extends Component
             ];
         });
 
-        return $teamTrainings->merge($allConferences)->toArray();
+        return array_merge($teamTrainings->toArray(), $allConferences->toArray());
     }
 
     /**
