@@ -126,4 +126,4 @@ php artisan serve
 
 ### ⭐ Mention spéciale :
 - Le meilleur cours PHP jamais créé :  
-  👉 [Cours de PHP par Julien](https://phd.julien-cpsn.com/courses/PHP/)
+  👉 [Cours de PHP par Julien Caposiena](https://phd.julien-cpsn.com/courses/PHP/)
