@@ -16,7 +16,7 @@ class PostFactory extends Factory
             'user_id' => User::inRandomOrder()->first()->id ?? User::factory(),
             'title' => $this->faker->sentence,
             'content' => $this->faker->paragraph,
-            'image' => $this->faker->imageUrl(640, 480, 'sports', true, 'post'),
+            'image' => null,
             'sport_id' => Sport::inRandomOrder()->first()->id ?? Sport::factory(),
         ];
     }

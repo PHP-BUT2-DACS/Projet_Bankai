@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Scout\Searchable;
 
 class Team extends Model
 {
-
+    use HasFactory, Notifiable, Searchable;
 
     protected $table = 'team';
     protected $fillable = ['name', 'sport_id'];

@@ -145,11 +145,6 @@
                         </div>
                     @endforeach
                 @elseif($sport == 'formula1')
-                    <!-- Debug - Afficher la structure des données -->
-                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-                        <h3 class="text-lg font-bold mb-2">Données reçues :</h3>
-                        <pre class="text-xs overflow-auto max-h-96">{{ print_r($matches, true) }}</pre>
-                    </div>
                     @foreach ($matches as $race)
                         <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition duration-300">
                             <!-- Détails de la course de Formule 1 -->

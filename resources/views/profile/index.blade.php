@@ -154,7 +154,7 @@
                         <!-- Image du post -->
                         @if($post->image)
                             <div class="mt-2">
-                                <img src="{{ Storage::url($post->image) }}" class="w-100 h-100 object-contain rounded-lg" alt="Image du post">
+                                <img src="{{ asset('storage/' . $post->image) }}" class="w-100 h-100 object-contain rounded-lg" alt="Image du post">
                             </div>
                         @endif
 

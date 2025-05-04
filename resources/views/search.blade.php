@@ -23,7 +23,7 @@
             @endforelse
         </div>
 
-        <!-- Résultats Équipes -->
+        <!-- Résultats Équipes-->
         <div class="mb-10">
             <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">🏆 Équipes</h2>
             @forelse ($teams as $team)

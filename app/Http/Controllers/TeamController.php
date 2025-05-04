@@ -6,8 +6,17 @@ use App\Models\Sport;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
+
 class TeamController extends Controller
 {
+
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name,
+        ];
+    }
+
     public function join(Request $request, $teamId)
     {
         $user = auth()->user();
